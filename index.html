@@ -1,0 +1,562 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Leo Zhao | Field Application Engineer</title>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/frame.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/controls.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/custom.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--  <script src="js/menu.js"></script>
+  <script src="js/footer.js"></script> -->
+  <style>
+    .menu-index {
+      color: rgb(255, 255, 255) !important;
+      opacity: 1 !important;
+      font-weight: 700 !important;
+    }
+  </style>
+
+  <style>
+    /* 强制覆盖 frame.css 的瀑布流设置，改为更稳定的网格布局 */
+    .masonry {
+      column-count: auto !important;    /* 1. 关掉“报纸”排版 */
+      column-gap: 0 !important;
+      display: flex !important;         /* 2. 开启 Flex 弹性布局 */
+      flex-wrap: wrap !important;       /* 3. 允许换行 */
+      justify-content: flex-start !important; /* 4. 从左向右排列 */
+      gap: 20px;                        /* 5. 图片之间的间距 */
+    }
+
+    .masonry figure {
+      /* 电脑端：强制宽度为 31% (约等于一行3个)，不再由浏览器随意分配 */
+      width: calc(33.33% - 14px) !important;
+      margin: 0 0 20px 0 !important;    /* 底部留出间距 */
+      break-inside: auto !important;
+      height: auto !important;          /* 高度自适应 */
+      align-self: flex-start !important; /* 防止图片被拉伸变形 */
+    }
+
+    /* 平板端适配 (iPad等)：一行 2 个 */
+    @media screen and (max-width: 900px) {
+      .masonry figure {
+        width: calc(50% - 10px) !important;
+      }
+    }
+
+    /* 手机端适配：一行 1 个 (占满) */
+    @media screen and (max-width: 500px) {
+      .masonry figure {
+        width: 100% !important;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="menu-container"></div>
+  <div class="content-container">
+    <!-------------------------------------------------------------------------------------------->
+    <!--Start Header-->
+    <div class="banner" style="background: url('img/dummy-background.jpeg') no-repeat center; background-size:cover; height: 320px;"></div>
+    <div class="banner">
+      <div class="banner-table flex-column">
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+
+            <blockquote style="border-left: 4px solid #ccc; margin-left: 0; padding-left: 15px; font-style: italic; color: white; ; border-radius: 4px;">
+              "How about the future? Just move forward."
+
+            <h2 class="add-top-margin-small">First Principles Thinker - Building, Solving, and Moving Forward</h2>
+
+
+              <div style="margin-top: 20px; font-size: 18px;">
+                <a href="laboratory.html" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin-right: 15px;">
+                  <i class="fas fa-flask"></i> Laboratory
+                </a>
+                <span style="color: white;">|</span>
+                <a href="trip.html" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin: 0 15px;">
+                  <i class="fas fa-plane"></i> Business Trip
+                </a>
+                <span style="color: white;">|</span>
+                <a href="exhibition.html" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin-left: 15px;">
+                  <i class="fas fa-images"></i> Exhibition
+                </a>
+              </div>
+
+
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Header-->
+    <!-------------------------------------------------------------------------------------------->
+    <div class="content">
+      <div class="content-table flex-column">
+        <!-------------------------------------------------------------------------------------------->
+        <!--Start Intro-->
+        <div class="flex-row-center">
+          <div class="flex-item flex-column">
+            <img class="image max-width-400" src="img/dummay-img.png" style="border-radius: 8px;">
+          </div>
+          <div class="flex-item flex-column">
+            <p class="text text-large" style="font-weight: bold;">
+              Leo(Wenzhuo) Zhao<br>
+              <span style="font-size: 0.8em; font-weight: normal;">
+                M.S. Student in ECE @ University of Pittsburgh<br>
+                Ex-Field Application Engineer (Consumer Electronics)<br>
+                <br>
+                <i class="fas fa-envelope"></i> <a href="mailto:meetleozhao@outlook.com">Email Me</a> &nbsp;|&nbsp;
+            <!--    <i class="fab fa-linkedin"></i> <a href="你的LinkedIn链接" target="_blank">LinkedIn</a> &nbsp;|&nbsp;-->
+                <i class="fas fa-file-alt"></i> <a href="file/Leo(Wenzhuo)_Zhao_Resume.pdf" target="_blank">Resume</a>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <p class="text add-top-margin">
+              I am a Master's student in ECE at the University of Pittsburgh with a strong background in embedded systems and technical support.
+              With 2+ years of experience as a Field Application Engineer (FAE) in Shenzhen, I specialize in bridging the gap between R&D and client applications.
+            </p>
+          </div>
+        </div>
+        <!--End Intro-->
+        <!-------------------------------------------------------------------------------------------->
+        <!--Start List of Projects-->
+
+        <div class="flex-row">
+          <div class="flex-item flex-column full-width">
+            <h2 id="experience">Professional Experience</h2>
+            <hr>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <div class="flex-item flex-item-stretch flex-column">
+            <img class="image" src="img/huiwei/huiwei (1).jpg" alt="Techvision" style="width: 200px; height: auto; border-radius: 8px;">
+          </div>
+          <div class="flex-item flex-item-stretch-4 flex-column">
+            <p class="text">
+              <span class="highlight-text" style="font-weight:bold;">Field Application Engineer</span> <br>
+              <span style="font-weight:bold;">Techvision Intelligent Technology</span><br>
+              <span style="font-style:italic; color:#666;">March 2025 - December 2025 | Shenzhen, China</span>
+            </p>
+            <p class="text">
+              Acted as the primary technical liaison for Commercial AIoT solutions (POS, Industrial, Medical).
+            <ul style="margin-top: 5px;">
+              <li>Defined system-level architectures and SoC selection, ensuring optimal hardware-software compatibility.</li>
+              <li>Implemented enterprise-grade MDM policies and Cloud Desktop solutions for device provisioning.</li>
+              <li>Managed technical support for Consumer Smart Terminals (AI PCs, AI Tablets) and drove complaint resolution.</li>
+              <li>Utilized C/C++/Python for debugging and executed containment plans for defective products.</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <div class="flex-item flex-item-stretch flex-column">
+            <img class="image" src="img/kor/kor (38).jpg" alt="Koryo" style="width: 200px; height: auto; border-radius: 8px;">
+          </div>
+          <div class="flex-item flex-item-stretch-4 flex-column">
+            <p class="text">
+              <span class="highlight-text" style="font-weight:bold;">Field Application Engineer</span> <br>
+              <span style="font-weight:bold;">Koryo Electronics Shenzhen</span><br>
+              <span style="font-style:italic; color:#666;">July 2023 - September 2024 | Shenzhen, China</span>
+            </p>
+            <p class="text">
+              Provided technical support and business development for MCU and MOSFET product lines.
+            <ul style="margin-top: 5px;">
+              <li>Redesigned control algorithms to reduce EM noise by 15% and developed thermal paths reducing temperature rise by 12°C.</li>
+              <li>Resolved critical production failures to secure a $1.5M project and won multi-million unit automotive orders.</li>
+              <li>Authored 8D and Failure Analysis reports, significantly reducing defect rates and delivery cycles.</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+
+
+
+
+        <!--End List of Projects-->
+        <!-------------------------------------------------------------------------------------------->
+        <!--Start Gallery-->
+
+
+        <div class="flex-row">
+          <div class="flex-item flex-column full-width">
+            <h2 id="laboratory">Laboratory & Routine</h2>
+            <hr>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <p class="text">
+              More details coming soon...
+            </p>
+          </div>
+        </div>
+
+        <div class="masonry" id="gallery-lab">
+
+          <figure>
+            <img src="img/Laboratory/lab-8.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-2.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-3.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-4.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-5.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-6.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-7.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-1.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-9.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-10.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-11.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-12.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-13.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-14.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-15.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-16.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-17.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-18.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+
+        </div>
+
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button id="btn-lab" a href="laboratory.html" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+            View Full Gallery
+          </button>
+        </div>
+
+        <!--
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <p class="text">
+              Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
+              augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget
+              condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit
+              vel, luctus pulvinar, hendrerit id, lorem.
+            </p>
+          </div>
+        </div>
+        -->
+
+        <!--End Gallery-->
+        <!-------------------------------------------------------------------------------------------->
+        <!-------------------------------------------------------------------------------------------->
+        <div class="flex-row">
+          <div class="flex-item flex-column full-width">
+            <h2 id="laboratory">Business Trip</h2>
+            <hr>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <p class="text">
+              More details coming soon...
+            </p>
+          </div>
+        </div>
+
+
+        <div class="masonry" id="gallery-trip">
+
+          <figure>
+            <img src="img/Business%20Trip/changchun.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Business%20Trip/guangzhou.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Business%20Trip/panzhihua.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Business%20Trip/shenzhen.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Business%20Trip/wuhan.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Business%20Trip/wuhan2.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+        </div>
+
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button id="btn-trip" a href="trip.html" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+            View Full Gallery
+          </button>
+        </div>
+
+
+        <div class="flex-row">
+          <div class="flex-item flex-column full-width">
+            <h2 id="laboratory">Exhibition</h2>
+            <hr>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <div class="flex-item flex-column">
+            <p class="text">
+              More details coming soon...
+            </p>
+          </div>
+        </div>
+
+
+        <div class="masonry" id="gallery-exhibition">
+
+          <figure>
+            <img src="img/Exhibition/ex-1.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-2.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-3.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-4.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-5.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-6.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-7.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-8.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+          <figure>
+            <img src="img/Exhibition/ex-9.jpg" style="border-radius: 8px;" loading="lazy">
+            <figcaption class="text-bottom">Image Caption</figcaption>
+          </figure>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button id="btn-exhibition" a href="exhibition.html" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+            View Full Gallery
+          </button>
+        </div>
+
+
+
+
+        <div class="flex-row">
+          <div class="flex-item flex-column full-width">
+            <h2 id="education">Education</h2>
+            <hr>
+          </div>
+        </div>
+
+        <div class="flex-row" style="margin-bottom: 60px;">
+          <div class="flex-item flex-item-stretch flex-column ">
+            <img class="image max-width-400" src="img/school/pitt.jpg" alt="University of Pittsburgh" style="border-radius: 8px;">
+          </div>
+          <div class="flex-item flex-item-stretch-4 flex-column">
+            <p class="text">
+              <span class="highlight-text" style="font-weight:bold;">University of Pittsburgh</span> <br>
+              <span style="font-style:italic;">Pittsburgh, PA, USA | Expected May 2027</span>
+            </p>
+            <p class="text">
+              <strong>Master of Science in Electrical and Computer Engineering</strong><br>
+              <em>Award: SSOE Dean's Scholarship</em>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex-row" style="margin-bottom: 40px;">
+          <div class="flex-item flex-item-stretch flex-column">
+            <img class="image max-width-400" src="img/school/qida1.jpg" alt="Qiqihar University" style="border-radius: 8px;">
+          </div>
+          <div class="flex-item flex-item-stretch-4 flex-column">
+            <p class="text">
+              <span class="highlight-text" style="font-weight:bold;">Qiqihar University</span> <br>
+              <span style="font-style:italic;">China | June 2023</span>
+            </p>
+            <p class="text">
+              <strong>Bachelor of Engineering in Mechatronics Engineering</strong>
+            </p>
+          </div>
+        </div>
+
+
+        <div class="flex-row" style="margin-bottom: 40px;">
+          <div class="flex-item flex-item-stretch flex-column">
+            <img class="image max-width-400" src="img/school/kegao2.jpg" alt="Shenzhen High School of Science" style="border-radius: 8px;">
+          </div>
+          <div class="flex-item flex-item-stretch-4 flex-column">
+            <p class="text">
+              <span class="highlight-text" style="font-weight:bold;">Shenzhen High School of Science</span> <br>
+              <span style="font-style:italic;">China | June 2019</span>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    <div class="footer-container"></div>
+  </div>
+</body>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+
+    /**
+     * 通用相册管理函数
+     * @param {string} galleryId - 相册容器的 ID
+     * @param {string} btnId - 按钮的 ID
+     * @param {number} showCount - 默认显示多少张
+     */
+    function initGallery(galleryId, btnId, showCount) {
+      var gallery = document.getElementById(galleryId);
+      var btn = document.getElementById(btnId);
+
+      // 安全检查：如果 ID 写错了找不到元素，就跳过，防止报错
+      if (!gallery || !btn) {
+        console.warn("未找到 ID 为 " + galleryId + " 或 " + btnId + " 的元素，跳过初始化。");
+        return;
+      }
+
+      var items = gallery.querySelectorAll('figure');
+
+      // 如果图片数量少于默认显示数量，直接隐藏按钮
+      if (items.length <= showCount) {
+        btn.style.display = 'none';
+        return;
+      }
+
+      // 1. 初始隐藏多余的图片
+      for (var i = showCount; i < items.length; i++) {
+        items[i].style.display = 'none';
+      }
+
+      // 2. 绑定按钮点击事件
+      btn.addEventListener('click', function() {
+        for (var i = showCount; i < items.length; i++) {
+          items[i].style.removeProperty('display'); // 恢复显示
+        }
+        btn.style.display = 'none'; // 隐藏按钮
+      });
+    }
+
+    // ---------------------------------------------------
+    // 在这里配置你的三个相册！
+    // 格式：initGallery('相册ID', '按钮ID', 默认显示几张);
+    // ---------------------------------------------------
+
+    // 1. 初始化 Laboratory 相册 (显示前 9 张)
+    initGallery('gallery-lab', 'btn-lab', 3);
+
+    // 2. 初始化 Business Trip 相册 (显示前 3 张)
+    initGallery('gallery-trip', 'btn-trip', 3);
+
+    // 3. 初始化 Exhibition 相册 (显示前 6 张)
+    initGallery('gallery-exhibition', 'btn-exhibition', 3);
+
+  });
+</script>
+
+
+
+</html>
