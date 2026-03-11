@@ -15,59 +15,235 @@
 <!--  <script src="js/menu.js"></script>
   <script src="js/footer.js"></script> -->
   <style>
-    .menu-index {
-      color: rgb(255, 255, 255) !important;
-      opacity: 1 !important;
-      font-weight: 700 !important;
-    }
+
+    /* 1. 基础样式：初始状态设置为透明，并稍微下移 */
+      .banner,
+      .flex-row-center,
+      .modern-card,
+      .highlight-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 0.5, 0.3, 1); /* 使用 transition 代替 animation 更平滑 */
+        will-change: transform, opacity; /* 告知浏览器优化渲染性能 */
+      }
+
+      /* 2. 当元素进入视口，被 JS 添加了 .visible 类后的状态 */
+      .visible {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+
+
+            /* 1. 强制覆盖外部菜单样式，保持纯净 */
+            .menu-index { color: rgb(255, 255, 255) !important; opacity: 1 !important; font-weight: 700 !important; }
+
+            /* 2. 2026 SOTA 全局背景：极简科技灰 (Ultra-light Tech Gray) */
+            body {
+              background-color: #f5f5f7 !important; /* 苹果官网同款底色 */
+              color: #1d1d1f; /* 极深灰取代死黑，提升阅读舒适度 */
+              /* 引入 2026 最先进的系统级字体栈 (System Font Stack) */
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            }
+
+            /* 3. 页面骨架：增加留白，收敛视觉焦点 */
+            .content, .content-table {
+              max-width: 1200px !important; /* 稍微收窄，让视线更聚焦 */
+              margin-left: auto !important;
+              margin-right: auto !important;
+              width: 100% !important;
+              box-sizing: border-box !important;
+              padding-top: 20px !important;
+            }
+
+            /* 4. 消除之前笨重的蓝色色块，将其转化为隐形的结构层 (Invisible Wrapper) */
+            .highlight-section {
+              background: transparent !important; /* 去除所有的背景色和渐变 */
+              padding: 0 !important;
+              margin-bottom: 50px !important; /* 增加板块间距，让页面“呼吸” */
+              box-shadow: none !important;
+            }
+
+            /* 5. 2026 拟态悬浮卡片 (Neumorphic Floating Cards) */
+            .modern-card {
+              background: #ffffff;
+              border-radius: 16px; /* 更圆润友好的圆角 */
+              padding: 32px; /* 更宽敞的内部空间 (Padding) */
+              margin-bottom: 24px;
+              border: 4px solid rgba(0, 0, 0, 0.04); /* 极具质感的极细边框 */
+              box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); /* 极其轻柔的环境光阴影 */
+              /* 极致丝滑的动画曲线 (Cubic-bezier for physical momentum) */
+              transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            }
+
+            /* 卡片悬浮交互 */
+            .modern-card:hover {
+              transform: translateY(-4px) scale(1.005); /* 带有微缩放的立体浮动 */
+              box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08); /* 悬浮时阴影加深扩散 */
+              border-color: rgba(0, 92, 191, 0.4); /* 边缘泛起极其轻微的科技蓝 */
+            }
+
+            /* 6. 极致干净的现代标题 (Modern Typography) */
+            h2 {
+
+
+  /* 保持原有的底部间距 */
+  margin-bottom: 24px;
+
+  /* 确保文字对齐更专业 */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+
+
+              color: #1d1d1f;
+              font-weight: 700;
+              font-size: 28px;
+              letter-spacing: -0.5px; /* 字距微缩，显得更专业紧凑 */
+              margin-bottom: 24px;
+              padding-bottom: 0;
+
+              /* 👇 新增这一行：为平滑滚动锚点设定顶部隐形隔离带 👇 */
+              scroll-margin-top: 80px;
+            }
+
+            /* 去除所有老旧的下划线和装饰 */
+            h2::after { display: none; }
+            h2 + hr { display: none; }
+
+            /* 7. 关键信息高亮强调色 (Accent Color) */
+            .highlight-text {
+              color: #0066cc; /* 克制且清透的科技蓝 */
+              font-weight: 600;
+            }
   </style>
+
+
+
 
   <style>
-    /* 1. 整体相册容器：改为垂直堆叠 (Vertical Stack) */
-    .masonry {
-      display: flex !important;
-      flex-direction: column !important; /* 让每个图片模块从上到下垂直排列 */
-      gap: 30px !important;              /* 每个项目（图+文）之间的上下间距 */
+    /* --- 2026 SOTA 轮播图核心样式 (Spatial UI Carousel Styles) --- */
+    .carousel-wrapper {
+      position: relative;
+      background-color: transparent;
+      padding: 0 50px;
+      margin-bottom: 40px;
     }
 
-    /* 2. 单个图文容器 (figure)：改为左右并排 (Side-by-side) */
-    .masonry figure {
-      display: flex !important;
-      flex-direction: row !important;    /* 核心：让内部的图片和文字水平排列 */
-      align-items: flex-start !important;/* 让文字和图片的顶部对齐 */
-      width: 100% !important;            /* 让整个模块占据整行宽度 */
+    .carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+      /* 增加一点内边距，防止高级阴影被直接裁切 (Prevent shadow clipping) */
+      padding: 15px 0;
+    }
+
+    .carousel-track {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      /* 升级为带阻尼感的物理缓动曲线 (Spring-like Cubic-bezier) */
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* 新增：幻灯片页面容器 (Slide Container) */
+    .carousel-slide {
+      flex: 0 0 100%; /* 保证每个“大盒子”占据 100% 的宽度 */
+      display: flex;
+      flex-direction: column; /* 让里面的三个项目从上到下垂直排列 */
+      gap: 30px; /* 每一行之间的垂直间距 */
+      box-sizing: border-box;
+    }
+
+
+
+    .carousel-track figure {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      /* flex: 0 0 100%; */
+      box-sizing: border-box;
+      margin: 0;
+      gap: 30px; /* 优化图片和右侧文字的间距 */
+    }
+
+    /* 图片的高级质感 (Image Aesthetics) */
+    .carousel-track figure img {
+      width: 45%;
+      max-width: 220px;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 12px; /* 与卡片统一的圆角 */
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); /* 极其轻柔的初始环境阴影 */
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+    }
+
+    /* 图片悬浮：微距抬升 (Micro-lift Hover Effect) */
+    .carousel-track figure img:hover {
+      transform: scale(1.02) translateY(-3px); /* 放大一点点，并向上浮动 3 像素 */
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12); /* 阴影扩散，增强立体感 */
+    }
+
+    .carousel-track figure figcaption {
+      flex-grow: 1;
+      text-align: left;
+      padding-top: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* 用 gap 精确控制标题和描述的间距 */
+    }
+
+    /* 强制接管 HTML 里的内联文字样式，统一为 2026 规范 (Override Inline Typography) */
+    .carousel-track figure figcaption strong {
+      font-size: 18px !important;
+      color: #1d1d1f !important; /* 极其深邃的系统灰 */
+      font-weight: 600 !important;
       margin: 0 !important;
-      gap: 30px !important;              /* 图片和右侧文字之间的间距 */
+      letter-spacing: -0.3px;
     }
 
-    /* 3. 图片样式 (img) */
-    .masonry figure img {
-      width: 40% !important;             /* 图片占左侧的 40% 宽度 (可根据喜好微调) */
-      max-width: 200px !important;       /* 限制最大宽度，防止大屏幕上图片过大 */
-      height: auto !important;
-      flex-shrink: 0 !important;         /* 关键设置：防止图片被右侧长文本挤压变形 */
+    .carousel-track figure figcaption span {
+      color: #86868b !important; /* 经典的科技银灰副标题色 */
+      font-size: 15px !important;
+      line-height: 1.6 !important;
     }
 
-    /* 4. 文字描述样式 (figcaption) */
-    .masonry figure figcaption {
-      flex-grow: 1 !important;           /* 让文字部分自动填满右侧剩余的所有空间 */
-      text-align: left !important;       /* 文字左对齐，方便阅读 */
-      margin: 0 !important;
+    /* 🌟 核心亮点：毛玻璃悬浮按钮 (Glassmorphism Floating Buttons) 🌟 */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      /* 毛玻璃特效核心参数 */
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      color: #1d1d1f;
+      border: 1px solid rgba(255, 255, 255, 0.6); /* 半透明的微光边框 */
+      border-radius: 50%;
+      width: 44px; /* 稍微加大，提升鼠标/手指的点击命中率 (Touch Target) */
+      height: 44px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+      /* 包含形变和色彩的平滑过渡 */
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
     }
 
-    /* 5. 移动端响应式设计 (Responsive Design) */
-    /* 当屏幕宽度小于 768px (例如手机或小平板) 时，自动改为“上图下文” */
-    @media screen and (max-width: 768px) {
-      .masonry figure {
-        flex-direction: column !important; /* 手机上改为垂直排列 */
-      }
-      .masonry figure img {
-        width: 100% !important;            /* 手机上图片占满 100% 宽度 */
-        max-width: none !important;
-      }
+    /* 按钮悬浮状态：给予明确的正向反馈 (Positive Feedback) */
+    .carousel-btn:hover {
+      background: rgba(255, 255, 255, 0.95); /* 鼠标悬停时变得接近纯白不透明 */
+      transform: translateY(-50%) scale(1.1); /* 微微放大 */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     }
+
+    .prev-btn { left: 0px; }
+    .next-btn { right: 0px; }
   </style>
-
 
 
 </head>
@@ -77,28 +253,42 @@
   <div class="content-container">
     <!-------------------------------------------------------------------------------------------->
     <!--Start Header-->
-    <div class="banner" style="background: url('img/dummy-background.jpeg') no-repeat center; background-size:cover; height: 320px;"></div>
+    <div class="banner" style="background: url('img/dummy-background.jpeg') no-repeat center; background-size:cover; height: 160px;"></div>
     <div class="banner">
       <div class="banner-table flex-column">
         <div class="flex-row">
           <div class="flex-item flex-column">
 
-            <blockquote style="border-left: 4px solid #ccc; margin-left: 0; padding-left: 15px; font-style: italic; color: white; ; border-radius: 4px;">
-              "How about the future? Just move forward."
+            <blockquote style="
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 5px solid #a3cfff;
+  margin-left: 0;
+  padding: 20px;
+  font-style: italic;
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+">
+              "How about the future? Just move forward."<br>
 
             <h2 class="add-top-margin-small">First Principles Thinker - Building, Solving, and Moving Forward</h2>
 
 
               <div style="margin-top: 20px; font-size: 18px;">
-                <a href="laboratory.html" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin-right: 15px;">
+                <a href="#laboratory" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin-right: 15px;">
                   <i class="fas fa-flask"></i> Laboratory
                 </a>
                 <span style="color: white;">|</span>
-                <a href="trip.html" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin: 0 15px;">
+
+                <a href="#trip" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin: 0 15px;">
                   <i class="fas fa-plane"></i> Business Trip
                 </a>
                 <span style="color: white;">|</span>
-                <a href="exhibition.html" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin-left: 15px;">
+
+                <a href="#exhibition" style="color: #a3cfff; text-decoration: none; font-weight: bold; margin-left: 15px;">
                   <i class="fas fa-images"></i> Exhibition
                 </a>
               </div>
@@ -115,44 +305,52 @@
       <div class="content-table flex-column">
         <!-------------------------------------------------------------------------------------------->
         <!--Start Intro-->
-        <div class="flex-row-center">
-          <div class="flex-item flex-column">
-            <img class="image max-width-400" src="img/dummay-img.png" style="border-radius: 8px;">
+        <div class="flex-row-center" style="display: flex; align-items: center; gap: 40px; margin-bottom: 50px;">
+
+          <div class="flex-item" style="flex: 0 0 40%; max-width: 400px;">
+            <img class="image" src="img/dummay-img.png" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
           </div>
-          <div class="flex-item flex-column">
-            <p class="text text-large" style="font-weight: bold;">
-              Leo(Wenzhuo) Zhao<br>
-              <span style="font-size: 0.8em; font-weight: normal;">
-                M.S. Student in ECE @ University of Pittsburgh<br>
-                Ex-Field Application Engineer (Consumer Electronics)<br>
-                <br>
-                <i class="fas fa-envelope"></i> <a href="mailto:meetleozhao@outlook.com">Email Me</a> &nbsp;|&nbsp;
-            <!--    <i class="fab fa-linkedin"></i> <a href="你的LinkedIn链接" target="_blank">LinkedIn</a> &nbsp;|&nbsp;-->
-                <i class="fas fa-file-alt"></i> <a href="file/Leo(Wenzhuo)_Zhao_Resume.pdf" target="_blank">Resume</a>
-              </span>
+
+          <div class="flex-item flex-column" style="flex: 1; text-align: left;">
+            <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 10px; color: #1d1d1f;">Leo(Wenzhuo) Zhao</h1>
+
+            <p style="font-size: 18px; color: #0066cc; font-weight: 600; margin-bottom: 12px;">
+              M.S. Student in ECE @ University of Pittsburgh
             </p>
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text add-top-margin">
+
+            <p style="font-size: 15px; color: #6e6e73; font-style: italic; margin-bottom: 20px;">
+              Ex-Field Application Engineer (Consumer Electronics)
+            </p>
+
+            <div style="font-size: 16px; line-height: 1.7; color: #424245; margin-bottom: 25px;">
               I am a Master's student in ECE at the University of Pittsburgh with a strong background in embedded systems and technical support.
-              With 2+ years of experience as a Field Application Engineer (FAE) in Shenzhen, I specialize in bridging the gap between R&D and client applications.
-            </p>
+              With 2+ years of experience as a Field Application Engineer (FAE) in Shenzhen, I specialize in <strong style="color: #1d1d1f;">bridging the gap between R&D and client applications</strong>.
+            </div>
+
+            <div style="display: flex; gap: 20px;">
+              <a href="mailto:meetleozhao@outlook.com" style="color: #0066cc; text-decoration: none; font-weight: 600;">
+                <i class="fas fa-envelope"></i> Email Me
+              </a>
+              <a href="file/Leo(Wenzhuo)_Zhao_Resume.pdf" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 600;">
+                <i class="fas fa-file-alt"></i> Resume
+              </a>
+            </div>
           </div>
         </div>
+
         <!--End Intro-->
         <!-------------------------------------------------------------------------------------------->
         <!--Start List of Projects-->
 
+        <div class="highlight-section" style="margin-bottom: 40px;">
         <div class="flex-row">
           <div class="flex-item flex-column full-width">
-            <h2 id="experience">Professional Experience</h2>
+            <h2 id="experience">PROFESSIONAL EXPERIENCE</h2>
             <hr>
           </div>
         </div>
 
-        <div class="flex-row">
+        <div class="flex-row modern-card">
           <div class="flex-item flex-item-stretch flex-column">
             <img class="image" src="img/huiwei/huiwei (1).jpg" alt="Techvision" style="width: 200px; height: auto; border-radius: 8px;">
           </div>
@@ -174,7 +372,7 @@
           </div>
         </div>
 
-        <div class="flex-row">
+        <div class="flex-row modern-card">
           <div class="flex-item flex-item-stretch flex-column">
             <img class="image" src="img/kor/kor (38).jpg" alt="Koryo" style="width: 200px; height: auto; border-radius: 8px;">
           </div>
@@ -194,6 +392,7 @@
             </p>
           </div>
         </div>
+        </div>
 
 
 
@@ -202,122 +401,192 @@
         <!-------------------------------------------------------------------------------------------->
         <!--Start Gallery-->
 
-
+        <div class="highlight-section" style="margin-bottom: 40px;">
         <div class="flex-row">
           <div class="flex-item flex-column full-width">
-            <h2 id="laboratory">Laboratory & Routine</h2>
+            <h2 id="laboratory">LABORATORY & ROUTINE</h2>
             <hr>
           </div>
         </div>
 
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text">
-              More details coming soon...
-            </p>
+        <div class="carousel-wrapper">
+          <button class="carousel-btn prev-btn" id="prev-lab">&#10094;</button>
+
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="track-lab">
+
+
+              <div class="carousel-slide">
+          <figure>
+            <img src="img/Laboratory/lab-8.jpg" loading="lazy">
+            <figcaption>
+              <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Trigger Tuning</strong>
+              <span style="color: #666; line-height: 1.6;">Fine-tuning signals on a portable tablet oscilloscope. I am adjusting the Horizontal Timebase via touch interaction to capture transient Undershoot Pulses, enabling precise measurement of the switching frequency.</span>
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-1.jpg" loading="lazy">
+            <figcaption>
+              <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Analysis of 5G Performance</strong>
+              <span style="color: #666; line-height: 1.6;">Under lab conditions, I conducted a synchronized performance benchmark of 5G SA networks across multiple devices using Cellular-Z. By monitoring real-time RSRP and SINR, I analyzed the link quality variations of different hardware within the same network topology.</span>
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img src="img/Laboratory/lab-2.jpg" loading="lazy">
+            <figcaption>
+              <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Analysis of 5G Physical Layer</strong>
+              <span style="color: #666; line-height: 1.6;">This session focused on testing 5G base station coverage. I recorded the NR-ARFCN and PCI of the serving cells while tracking signal fluctuations of Neighboring Cells to provide data support for optimizing handover logic.</span>
+            </figcaption>
+          </figure>
+
+
+                </div>
+
+              <div class="carousel-slide">
+              <figure>
+                <img src="img/Laboratory/lab-4.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Firmware Repository</strong>
+                  <span style="color: #666; line-height: 1.6;">A collection of storage media used throughout the project. These drives, ranging from USB Type-A to Type-C, carry various Firmware Images and OS bootloaders for rapid environment deployment across embedded platforms.</span>
+                </figcaption>
+              </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-5.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Hardware Debugging</strong>
+                    <span style="color: #666; line-height: 1.6;">A snapshot of a typical circuit debugging session. I established physical connections using Alligator Clips to lead out key signal nodes from the control board, preparing for subsequent Multi-channel Signal Analysis.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-6.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Multi-channel Signal Logic Capture</strong>
+                    <span style="color: #666; line-height: 1.6;">Capturing complex analog signals in real-time using a Tektronix MDO34 oscilloscope. By analyzing the Period and peak values of the CH4 (green) waveform, I verified the dynamic response characteristics of the circuit under specific loads.</span>
+                  </figcaption>
+                </figure>
+                </div>
+
+
+              <div class="carousel-slide">
+                <figure>
+                  <img src="img/Laboratory/lab-7.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Thermal Management</strong>
+                    <span style="color: #666; line-height: 1.6;">This setup involves precision soldering and thermal stress testing. The BY1515 heating station (left) simulates various operating temperatures, while the organized components (right) include high-performance MOSFETs and peripheral power devices.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-9.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Motor Commutation Algorithmic Logic Derivation</strong>
+                    <span style="color: #666; line-height: 1.6;">A handwritten manuscript of the motor drive algorithm design. By deriving the timing diagrams and Truth Tables, I defined the Hall sensor signal sequences for both forward and reverse modes, laying the foundation for firmware logic implementation.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-10.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">HDMI transmitter Development</strong>
+                    <span style="color: #666; line-height: 1.6;">A snapshot of a typical hardware-software co-debugging session. I am using my laptop to interface with an embedded control board via terminal, while leveraging the large meeting room display for data monitoring or reference. This multi-screen setup significantly enhances debugging efficiency during complex logic implementation.</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+
+              <div class="carousel-slide">
+                <figure>
+                  <img src="img/Laboratory/lab-11.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">PMSM Control Algorithm Derivation</strong>
+                    <span style="color: #666; line-height: 1.6;">The whiteboard serves as my primary tool for capturing insights when tackling PMSM (Permanent Magnet Synchronous Motor) control algorithms. The sketches document the derivation of FOC (Field-Oriented Control) logic and the mapping between current and speed loops—a critical bridge between mathematical formulas and production code.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-12.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Transient Capture of Motor Startup Current</strong>
+                    <span style="color: #666; line-height: 1.6;">Using a Keysight oscilloscope to capture the current surge during motor startup. By configuring precise trigger levels, I recorded a Peak-to-Peak current fluctuation of 7.36A, which is essential for evaluating the Over-Current Protection (OCP) of power devices.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-13.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Multi-Channel Thermal Rise Monitoring</strong>
+                    <span style="color: #666; line-height: 1.6;">Utilizing a Yokogawa data logger for long-term thermal rise testing of power modules. The real-time curves illustrate temperature trends at critical sensing points under load, with peak temperatures reaching 92.5°C, providing direct experimental evidence for thermal management optimization.</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+
+              <div class="carousel-slide">
+                <figure>
+                  <img src="img/Laboratory/lab-14.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Thermodynamic Calculation for Power Devices</strong>
+                    <span style="color: #666; line-height: 1.6;">To address thermal failure in MOSFETs at high power, I performed detailed thermal resistance modeling. By deriving Junction Temperature formulas and comparing various heat-sink packaging solutions, I quantified the impact of air thermal conductivity on overall temperature rise.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-15.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Power Supply Prototype</strong>
+                    <span style="color: #666; line-height: 1.6;">Showcasing the internal structure of a power supply prototype I assembled. Featured are the core Toroidal Transformer and my hand-soldered rectifier/filter control board. Through strategic spatial layout and cable management, I balanced high-performance power output with EMI suppression.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-16.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">My Daily Workstation</strong>
+                    <span style="color: #666; line-height: 1.6;">My daily workstation for rapid prototyping and validation. The setup integrates a Tektronix oscilloscope, DC power supply, and signal generator. By combining complex logic analysis with hardware testing, I can swiftly move from conceptual design to functional physical prototypes.</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+
+
+              <div class="carousel-slide">
+                <figure>
+                  <img src="img/Laboratory/lab-17.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Lab Prototyping</strong>
+                    <span style="color: #666; line-height: 1.6;">A panoramic view of the lab, documenting the birth of a project from scratch. From the scattered structural parts on the left to the precision instruments on the right, every detail represents my relentless exploration of performance boundaries during product iteration.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-18.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">BEMF & Hall Sensor Signal Mapping</strong>
+                    <span style="color: #666; line-height: 1.6;">A logical sketch for defining the phase sequences of a brushless motor (BLDC). I established the phase relationship between BEMF (Back EMF) and Hall Sensor signals (U/V/W), which serves as the fundamental basis for coding Commutation Logic.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Laboratory/lab-3.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Hardware Power Consumption</strong>
+                    <span style="color: #666; line-height: 1.6;">Using the high-precision POWER-Z tester, I performed a quantitative analysis of charging efficiency. The setup successfully identified the PD 3.0 protocol and captured dynamic Voltage and Current curves to ensure power consumption met engineering standards.</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+
+
+            </div>
           </div>
+
+          <button class="carousel-btn next-btn" id="next-lab">&#10095;</button>
         </div>
-
-        <div class="masonry" id="gallery-lab">
-
-          <figure>
-            <img src="img/Laboratory/lab-8.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-2.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-3.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-4.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-5.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-6.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-7.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-1.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-9.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-10.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-11.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-12.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-13.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-14.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-15.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-16.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-17.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-          <figure>
-            <img src="img/Laboratory/lab-18.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-
-        </div>
-
-
-        <div style="text-align: center; margin-top: 20px;">
-          <button id="btn-lab" a href="laboratory.html" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
-            View Full Gallery
-          </button>
-        </div>
+          </div>
 
         <!--
         <div class="flex-row">
@@ -335,131 +604,185 @@
         <!--End Gallery-->
         <!-------------------------------------------------------------------------------------------->
         <!-------------------------------------------------------------------------------------------->
+        <div class="highlight-section" style="margin-bottom: 40px;">
         <div class="flex-row">
           <div class="flex-item flex-column full-width">
-            <h2 id="laboratory">Business Trip</h2>
+            <h2 id="trip">BUSINESS TRIP</h2>
             <hr>
           </div>
         </div>
 
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text">
-              More details coming soon...
-            </p>
+        <div class="carousel-wrapper">
+          <button class="carousel-btn prev-btn" id="prev-trip">&#10094;</button>
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="track-trip">
+
+              <div class="carousel-slide">
+              <figure>
+                <img src="img/Business%20Trip/changchun.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Changchun: Remote Project Support</strong>
+                  <span style="color: #666; line-height: 1.6;">A temporary workspace during my business trip to Changchun. This was my command center for solving on-site technical issues and staying in sync with the remote team.</span>
+                </figcaption>
+              </figure>
+
+              <figure>
+                <img src="img/Business%20Trip/wuhan.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Wuhan: Tea Break During Team Collaboration</strong>
+                  <span style="color: #666; line-height: 1.6;">A row of milk teas in a Wuhan meeting room—the perfect recharge after a session of intense discussion and team collaboration.</span>
+                </figcaption>
+              </figure>
+
+              <figure>
+                <img src="img/Business%20Trip/wuhan2.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Wuhan Station: A Moment of Calm Before Return</strong>
+                  <span style="color: #666; line-height: 1.6;">Waiting at Wuhan Station with high-speed trains lined up outside. This quiet moment marks the successful completion of one task and the start of the next journey.</span>
+                </figcaption>
+              </figure>
+                </div>
+
+              <div class="carousel-slide">
+              <figure>
+                <img src="img/Business%20Trip/guangzhou.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Guangzhou: Journey Through a Rainy Night</strong>
+                  <span style="color: #666; line-height: 1.6;">A rainy night in Guangzhou, en route to a project site. The neon lights and raindrops on the car window capture the many tireless journeys behind engineering projects.</span>
+                </figcaption>
+              </figure>
+                <figure>
+                  <img src="img/Business%20Trip/panzhihua.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Panzhihua: Late Night in the Flower City</strong>
+                    <span style="color: #666; line-height: 1.6;">A brief pause on the streets of Panzhihua after a long day of on-site debugging. The warm city lights illuminated the way home and witnessed every step of the project’s progress.</span>
+                  </figcaption>
+                </figure>
+                <figure>
+                  <img src="img/Business%20Trip/shenzhen.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Shenzhen: Fast-Paced Lunch Hour</strong>
+                    <span style="color: #666; line-height: 1.6;">A snapshot of lunch hour in fast-paced Shenzhen. Here, efficiency is not just in code and hardware, but also in the quick meals and hurried crowds.</span>
+                  </figcaption>
+                </figure>
+                </div>
+
+            </div> </div> <button class="carousel-btn next-btn" id="next-trip">&#10095;</button>
+        </div>
           </div>
-        </div>
 
-
-        <div class="masonry" id="gallery-trip">
-
-          <figure>
-            <img src="img/Business%20Trip/changchun.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Business%20Trip/guangzhou.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Business%20Trip/panzhihua.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Business%20Trip/shenzhen.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Business%20Trip/wuhan.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Business%20Trip/wuhan2.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-        </div>
-
-
-        <div style="text-align: center; margin-top: 20px;">
-          <button id="btn-trip" a href="trip.html" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
-            View Full Gallery
-          </button>
-        </div>
-
-
+        <div class="highlight-section" style="margin-bottom: 40px;">
         <div class="flex-row">
           <div class="flex-item flex-column full-width">
-            <h2 id="laboratory">Exhibition</h2>
+            <h2 id="exhibition">EXHIBITION</h2>
             <hr>
           </div>
         </div>
 
-        <div class="flex-row">
-          <div class="flex-item flex-column">
-            <p class="text">
-              More details coming soon...
-            </p>
+        <div class="carousel-wrapper">
+          <button class="carousel-btn prev-btn" id="prev-ex">&#10094;</button>
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="track-ex">
+
+              <div class="carousel-slide">
+              <figure>
+                <img src="img/Exhibition/ex-1.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">ELEXCON Shenzhen International Electronics Show</strong>
+                  <span style="color: #666; line-height: 1.6;">Attended Elexcon 2023 as a professional audience. My focus was on "High Computing Power & Low Power Consumption" semiconductor solutions, discussing the future of AI intelligence under PPA (Power, Performance, Area) constraints.</span>
+                </figcaption>
+              </figure>
+
+              <figure>
+                <img src="img/Exhibition/ex-2.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">IOTE International Internet of Things Exhibition</strong>
+                  <span style="color: #666; line-height: 1.6;">Visited IOTE 2023 in Shenzhen to gain insights into the latest dynamics of the entire IoT industry chain. Field research across sensor and application layers provided firsthand data for project technical selection.</span>
+                </figcaption>
+              </figure>
+
+              <figure>
+                <img src="img/Exhibition/ex-3.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Global MCU Ecosystem Development Summit</strong>
+                  <span style="color: #666; line-height: 1.6;">Attended the EE Times forum by Aspencore. Participated in deep-dive discussions on motor drive and control seminars, specifically focusing on the integration of Chiplet technology and the MCU ecosystem.</span>
+                </figcaption>
+              </figure>
+                </div>
+
+              <div class="carousel-slide">
+              <figure>
+                <img src="img/Exhibition/ex-4.jpg" loading="lazy">
+                <figcaption>
+                  <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">CHTF: High-end Equipment Manufacturing</strong>
+                  <span style="color: #666; line-height: 1.6;">At the 25th China Hi-Tech Fair (CHTF), I explored the latest technological achievements in smart equipment, industrial robotics, and additive manufacturing. CHTF is a key window for me to find inspiration in cross-industry technology fusion.</span>
+                </figcaption>
+              </figure>
+
+                <figure>
+                  <img src="img/Exhibition/ex-5.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Motor Drive Forum & Networking</strong>
+                    <span style="color: #666; line-height: 1.6;">Peer technical exchanges during the exhibition. Through face-to-face discussions with fellow engineers, I gained a more objective view of current project paths and broadened my approach to solving engineering challenges.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Exhibition/ex-6.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">CPSE China Public Security Expo</strong>
+                    <span style="color: #666; line-height: 1.6;">Attended CPSE 2023 to investigate AI panoramic video one-stop solutions. Focused on the combined application of machine vision and public security systems to explore industry-level AI implementation scenarios.</span>
+                  </figcaption>
+                </figure>
+                </div>
+
+
+              <div class="carousel-slide">
+                <figure>
+                  <img src="img/Exhibition/ex-7.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">CHTF Navigation & Route Planning</strong>
+                    <span style="color: #666; line-height: 1.6;">Systematically navigating the vast CHTF halls. Through strategic route planning of key exhibition zones, I efficiently gathered comprehensive information across telecommunications, semiconductors, and new energy.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Exhibition/ex-8.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Cutting-edge Tech Experience at ST booth</strong>
+                    <span style="color: #666; line-height: 1.6;">Investigated the assisted power bicycle solution featuring NFC WLC technology at the ST booth. This innovative fusion of NFC and wireless charging provided significant inspiration for my subsequent low-power hardware designs.</span>
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="img/Exhibition/ex-9.jpg" loading="lazy">
+                  <figcaption>
+                    <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">STMicroelectronics Welcome Board</strong>
+                    <span style="color: #666; line-height: 1.6;">Invited to visit the ST booth, focusing on their latest chip solutions for industrial and automotive sectors. As a major semiconductor vendor, ST’s technological evolution is highly instructive for my project architecture design.</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+
+
+            </div>
           </div>
+          <button class="carousel-btn next-btn" id="next-ex">&#10095;</button>
         </div>
-
-
-        <div class="masonry" id="gallery-exhibition">
-
-          <figure>
-            <img src="img/Exhibition/ex-1.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-2.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-3.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-4.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-5.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-6.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-7.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-8.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-          <figure>
-            <img src="img/Exhibition/ex-9.jpg" style="border-radius: 8px;" loading="lazy">
-            <figcaption class="text-bottom">Image Caption</figcaption>
-          </figure>
-        </div>
-
-        <div style="text-align: center; margin-top: 20px;">
-          <button id="btn-exhibition" a href="exhibition.html" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px;">
-            View Full Gallery
-          </button>
-        </div>
+          </div>
 
 
 
 
+        <div class="highlight-section" style="margin-bottom: 40px;">
         <div class="flex-row">
           <div class="flex-item flex-column full-width">
-            <h2 id="education">Education</h2>
+            <h2 id="education">EDUCATION</h2>
             <hr>
           </div>
         </div>
 
-        <div class="flex-row" style="margin-bottom: 60px;">
+        <div class="flex-row modern-card">
           <div class="flex-item flex-item-stretch flex-column ">
             <img class="image max-width-400" src="img/school/pitt.jpg" alt="University of Pittsburgh" style="border-radius: 8px;">
           </div>
@@ -475,7 +798,7 @@
           </div>
         </div>
 
-        <div class="flex-row" style="margin-bottom: 40px;">
+        <div class="flex-row modern-card">
           <div class="flex-item flex-item-stretch flex-column">
             <img class="image max-width-400" src="img/school/qida1.jpg" alt="Qiqihar University" style="border-radius: 8px;">
           </div>
@@ -491,7 +814,7 @@
         </div>
 
 
-        <div class="flex-row" style="margin-bottom: 40px;">
+        <div class="flex-row modern-card">
           <div class="flex-item flex-item-stretch flex-column">
             <img class="image max-width-400" src="img/school/kegao2.jpg" alt="Shenzhen High School of Science" style="border-radius: 8px;">
           </div>
@@ -501,75 +824,132 @@
               <span style="font-style:italic;">China | June 2019</span>
           </div>
         </div>
-
-
-
-
       </div>
+
+
+
+        <div class="highlight-section" style="margin-bottom: 40px;">
+          <div class="flex-row">
+            <div class="flex-item flex-column full-width">
+              <h2 id="recommendation" style="padding-top: 100px !important; margin-top: 0;">RECOMMENDATION</h2>
+              <hr>
+            </div>
+          </div>
+
+
+          <div class="flex-row modern-card">
+            <div class="flex-item flex-item-stretch-4 flex-column">
+              <p class="text">
+                <span class="highlight-text" style="font-weight:bold;">XU WU</span> <br>
+                <span style="font-style:italic;">Vice President | Koryo Electronics Shenzhen</span>
+              </p>
+              <p class="text">
+                His role as a Field Application Engineer demanded not only technical excellence but
+                  also the ability to drive strategic outcomes in high-pressure environments, and he consistently
+                  delivered beyond expectations.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex-row modern-card">
+            <div class="flex-item flex-item-stretch-4 flex-column">
+              <p class="text">
+                <span class="highlight-text" style="font-weight:bold;">WENJIAN LIN</span> <br>
+                <span style="font-style:italic;">Field Application Engineer | Koryo Electronics Shenzhen</span>
+              </p>
+              <p class="text">
+                He’s always sharing little hacks or industry insights he picks up from tech events, which makes everyone around him better. In addition, he’s curious, humble, and genuinely loves
+                solving problems.
+              </p>
+            </div>
+          </div>
+
+        </div>
     </div>
     <div class="footer-container"></div>
   </div>
+  </div>>
 </body>
-
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
 
-    /**
-     * 通用相册管理函数
-     * @param {string} galleryId - 相册容器的 ID
-     * @param {string} btnId - 按钮的 ID
-     * @param {number} showCount - 默认显示多少张
-     */
-    function initGallery(galleryId, btnId, showCount) {
-      var gallery = document.getElementById(galleryId);
-      var btn = document.getElementById(btnId);
+    // 定义轮播图驱动函数 (Carousel Driver Function)
+    function setupCarousel(trackId, prevBtnId, nextBtnId) {
+      const track = document.getElementById(trackId);
+      const prevBtn = document.getElementById(prevBtnId);
+      const nextBtn = document.getElementById(nextBtnId);
 
-      // 安全检查：如果 ID 写错了找不到元素，就跳过，防止报错
-      if (!gallery || !btn) {
-        console.warn("未找到 ID 为 " + galleryId + " 或 " + btnId + " 的元素，跳过初始化。");
-        return;
+      if (!track || !prevBtn || !nextBtn) return;
+
+      const slides = Array.from(track.children);
+      let currentIndex = 0; // 当前显示的图片索引 (Current Image Index)
+
+      // 更新轨道位置的函数 (Update Track Position)
+      function updatePosition() {
+        // 利用 CSS Transform 移动轨道。比如 currentIndex 是 1，就向左移动 -100%
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
       }
 
-      var items = gallery.querySelectorAll('figure');
-
-      // 如果图片数量少于默认显示数量，直接隐藏按钮
-      if (items.length <= showCount) {
-        btn.style.display = 'none';
-        return;
-      }
-
-      // 1. 初始隐藏多余的图片
-      for (var i = showCount; i < items.length; i++) {
-        items[i].style.display = 'none';
-      }
-
-      // 2. 绑定按钮点击事件
-      btn.addEventListener('click', function() {
-        for (var i = showCount; i < items.length; i++) {
-          items[i].style.removeProperty('display'); // 恢复显示
+      // 点击下一张 (Next Slide Logic)
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+          currentIndex++;
+        } else {
+          currentIndex = 0; // 如果到了最后一张，再点就回到第一张 (Loop back to start)
         }
-        btn.style.display = 'none'; // 隐藏按钮
+        updatePosition();
+      });
+
+      // 点击上一张 (Previous Slide Logic)
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+        } else {
+          currentIndex = slides.length - 1; // 如果在第一张点上一张，跳到最后一张
+        }
+        updatePosition();
       });
     }
 
-    // ---------------------------------------------------
-    // 在这里配置你的三个相册！
-    // 格式：initGallery('相册ID', '按钮ID', 默认显示几张);
-    // ---------------------------------------------------
+// 激活 Laboratory 板块的轮播图
+    setupCarousel('track-lab', 'prev-lab', 'next-lab');
 
-    // 1. 初始化 Laboratory 相册 (显示前 9 张)
-    initGallery('gallery-lab', 'btn-lab', 3);
+    // 激活 Business Trip 板块的轮播图 (新增)
+    setupCarousel('track-trip', 'prev-trip', 'next-trip');
 
-    // 2. 初始化 Business Trip 相册 (显示前 3 张)
-    initGallery('gallery-trip', 'btn-trip', 3);
-
-    // 3. 初始化 Exhibition 相册 (显示前 6 张)
-    initGallery('gallery-exhibition', 'btn-exhibition', 3);
+    // 激活 Exhibition 板块的轮播图 (新增)
+    setupCarousel('track-ex', 'prev-ex', 'next-ex');
 
   });
-</script>
 
+  document.addEventListener("DOMContentLoaded", function() {
+  // 创建观察者实例 (Create Observer)
+  const observerOptions = {
+    root: null, // 默认为视口 (Viewport)
+    rootMargin: '0px',
+    threshold: 0.2 // 当元素出现 15% 的时候触发动画
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      // 如果元素进入视口 (If element is in viewport)
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // 动画只执行一次，执行完后取消观察，节省内存
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // 告诉观察者要盯着哪些元素 (Observe all sections)
+  const targets = document.querySelectorAll('.banner, .flex-row-center, .modern-card, .highlight-section');
+  targets.forEach(target => observer.observe(target));
+});
+
+
+
+</script>
 
 
 </html>
