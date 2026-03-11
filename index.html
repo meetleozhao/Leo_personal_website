@@ -23,39 +23,52 @@
   </style>
 
   <style>
-    /* 强制覆盖 frame.css 的瀑布流设置，改为更稳定的网格布局 */
+    /* 1. 整体相册容器：改为垂直堆叠 (Vertical Stack) */
     .masonry {
-      column-count: auto !important;    /* 1. 关掉“报纸”排版 */
-      column-gap: 0 !important;
-      display: flex !important;         /* 2. 开启 Flex 弹性布局 */
-      flex-wrap: wrap !important;       /* 3. 允许换行 */
-      justify-content: flex-start !important; /* 4. 从左向右排列 */
-      gap: 20px;                        /* 5. 图片之间的间距 */
+      display: flex !important;
+      flex-direction: column !important; /* 让每个图片模块从上到下垂直排列 */
+      gap: 30px !important;              /* 每个项目（图+文）之间的上下间距 */
     }
 
+    /* 2. 单个图文容器 (figure)：改为左右并排 (Side-by-side) */
     .masonry figure {
-      /* 电脑端：强制宽度为 31% (约等于一行3个)，不再由浏览器随意分配 */
-      width: calc(33.33% - 14px) !important;
-      margin: 0 0 20px 0 !important;    /* 底部留出间距 */
-      break-inside: auto !important;
-      height: auto !important;          /* 高度自适应 */
-      align-self: flex-start !important; /* 防止图片被拉伸变形 */
+      display: flex !important;
+      flex-direction: row !important;    /* 核心：让内部的图片和文字水平排列 */
+      align-items: flex-start !important;/* 让文字和图片的顶部对齐 */
+      width: 100% !important;            /* 让整个模块占据整行宽度 */
+      margin: 0 !important;
+      gap: 30px !important;              /* 图片和右侧文字之间的间距 */
     }
 
-    /* 平板端适配 (iPad等)：一行 2 个 */
-    @media screen and (max-width: 900px) {
+    /* 3. 图片样式 (img) */
+    .masonry figure img {
+      width: 40% !important;             /* 图片占左侧的 40% 宽度 (可根据喜好微调) */
+      max-width: 200px !important;       /* 限制最大宽度，防止大屏幕上图片过大 */
+      height: auto !important;
+      flex-shrink: 0 !important;         /* 关键设置：防止图片被右侧长文本挤压变形 */
+    }
+
+    /* 4. 文字描述样式 (figcaption) */
+    .masonry figure figcaption {
+      flex-grow: 1 !important;           /* 让文字部分自动填满右侧剩余的所有空间 */
+      text-align: left !important;       /* 文字左对齐，方便阅读 */
+      margin: 0 !important;
+    }
+
+    /* 5. 移动端响应式设计 (Responsive Design) */
+    /* 当屏幕宽度小于 768px (例如手机或小平板) 时，自动改为“上图下文” */
+    @media screen and (max-width: 768px) {
       .masonry figure {
-        width: calc(50% - 10px) !important;
+        flex-direction: column !important; /* 手机上改为垂直排列 */
       }
-    }
-
-    /* 手机端适配：一行 1 个 (占满) */
-    @media screen and (max-width: 500px) {
-      .masonry figure {
-        width: 100% !important;
+      .masonry figure img {
+        width: 100% !important;            /* 手机上图片占满 100% 宽度 */
+        max-width: none !important;
       }
     }
   </style>
+
+
 
 </head>
 
