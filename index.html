@@ -201,7 +201,8 @@
     }
 
     .carousel-track figure figcaption span {
-      color: #86868b !important; /* 经典的科技银灰副标题色 */
+    /*  color: #86868b !important;  经典的科技银灰副标题色 */
+       color: #333 !important; /* 经典的科技银灰副标题色 */
       font-size: 15px !important;
       line-height: 1.6 !important;
     }
@@ -421,7 +422,7 @@
             <img src="img/Laboratory/lab-8.jpg" loading="lazy">
             <figcaption>
               <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Trigger Tuning</strong>
-              <span style="color: #666; line-height: 1.6;">Fine-tuning signals on a portable tablet oscilloscope. I am adjusting the Horizontal Timebase via touch interaction to capture transient Undershoot Pulses, enabling precise measurement of the switching frequency.</span>
+              <span style="color: #333; line-height: 1.6;">Fine-tuning signals on a portable tablet oscilloscope. I am adjusting the Horizontal Timebase via touch interaction to capture transient Undershoot Pulses, enabling precise measurement of the switching frequency.</span>
             </figcaption>
           </figure>
 
@@ -429,7 +430,7 @@
             <img src="img/Laboratory/lab-1.jpg" loading="lazy">
             <figcaption>
               <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Analysis of 5G Performance</strong>
-              <span style="color: #666; line-height: 1.6;">Under lab conditions, I conducted a synchronized performance benchmark of 5G SA networks across multiple devices using Cellular-Z. By monitoring real-time RSRP and SINR, I analyzed the link quality variations of different hardware within the same network topology.</span>
+              <span style="color: #333; line-height: 1.6;">Under lab conditions, I conducted a synchronized performance benchmark of 5G SA networks across multiple devices using Cellular-Z. By monitoring real-time RSRP and SINR, I analyzed the link quality variations of different hardware within the same network topology.</span>
             </figcaption>
           </figure>
 
@@ -437,7 +438,7 @@
             <img src="img/Laboratory/lab-2.jpg" loading="lazy">
             <figcaption>
               <strong style="font-size: 1.2em; display: block; margin-bottom: 10px; color: #333;">Analysis of 5G Physical Layer</strong>
-              <span style="color: #666; line-height: 1.6;">This session focused on testing 5G base station coverage. I recorded the NR-ARFCN and PCI of the serving cells while tracking signal fluctuations of Neighboring Cells to provide data support for optimizing handover logic.</span>
+              <span style="color: #333; line-height: 1.6;">This session focused on testing 5G base station coverage. I recorded the NR-ARFCN and PCI of the serving cells while tracking signal fluctuations of Neighboring Cells to provide data support for optimizing handover logic.</span>
             </figcaption>
           </figure>
 
@@ -928,16 +929,16 @@
   const observerOptions = {
     root: null, // 默认为视口 (Viewport)
     rootMargin: '0px',
-    threshold: 0.2 // 当元素出现 15% 的时候触发动画
+    threshold: 0.25 // 当元素出现 15% 的时候触发动画
   };
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       // 如果元素进入视口 (If element is in viewport)
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // 动画只执行一次，执行完后取消观察，节省内存
-        observer.unobserve(entry.target);
+    if (entry.isIntersecting) {
+      // 当元素进入视口，添加 visible 类触发动画
+      entry.target.classList.add('visible');
+    } else {
       }
     });
   }, observerOptions);
