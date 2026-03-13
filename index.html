@@ -115,6 +115,8 @@
               color: #0066cc; /* 克制且清透的科技蓝 */
               font-weight: 600;
             }
+
+
   </style>
 
 
@@ -244,6 +246,119 @@
 
     .prev-btn { left: 0px; }
     .next-btn { right: 0px; }
+
+    /* --- Mobile Layout Adaptations --- */
+    @media (max-width: 768px) {
+      /* 0. Global Fixes to prevent horizontal scroll and text overflow */
+      html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+      }
+      .content, .content-table, .highlight-section, .carousel-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important; /* contain horizontal overflow */
+      }
+      .content-table {
+        padding: 20px 15px !important;
+      }
+      .flex-item {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .flex-row, .flex-row-center, .full-width {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
+      /* 1. Intro Section */
+      .flex-row-center {
+        flex-direction: column !important;
+        gap: 20px !important;
+        margin-bottom: 30px !important;
+      }
+      .flex-row-center .flex-item {
+        flex: 0 0 auto !important;
+      }
+
+      /* 2. Professional Experience & Education cards */
+      .modern-card {
+        flex-direction: column !important;
+        padding: 20px !important;
+        height: auto !important;
+        align-items: flex-start !important; /* Stack cleanly without centering text blocks */
+      }
+      .modern-card .flex-item {
+        flex: none !important; /* Crucial: stop flex items from forcing bizarre heights */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 15px 0 !important;
+      }
+      .modern-card img {
+        margin: 0 auto 10px auto !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 250px !important;
+        display: block !important;
+      }
+
+      /* Fix typography wrapping for long headers */
+      h2 {
+        font-size: 24px !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+      }
+
+      /* 3. Carousel / Gallery */
+      .carousel-wrapper {
+        padding: 0 !important;
+      }
+      .carousel-track figure {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 15px !important;
+      }
+      .carousel-track figure img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+      }
+      .carousel-track figure figcaption {
+        padding: 0 10px;
+      }
+      .carousel-btn {
+        width: 36px !important;
+        height: 36px !important;
+        z-index: 20 !important;
+      }
+      .prev-btn { left: 5px !important; }
+      .next-btn { right: 5px !important; }
+
+      /* 4. Banner & Menu */
+      .banner blockquote {
+        margin: 10px !important;
+      }
+      .banner blockquote h2 {
+        font-size: 18px !important;
+      }
+      .banner blockquote div {
+        display: flex;
+        flex-direction: column !important;
+        gap: 10px !important;
+      }
+      .banner blockquote div span {
+        display: none !important;
+      }
+      .banner blockquote div a {
+        margin: 0 !important;
+      }
+    }
   </style>
 
 
